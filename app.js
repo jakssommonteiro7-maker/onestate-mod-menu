@@ -1,42 +1,23 @@
-const express = require('express');
-const cors = require('cors');
-const axios = require('axios');
+function abrirMenu() {
+  alert("Bem-vindo ao nosso menu OneState!");
+}
 
-const app = express();
-app.use(cors());
-app.use(express.json());
+abrirMenu();
+function abrirMenu() {
+  const menu = document.createElement("div");
 
-const API_URL = process.env.EXPO_PUBLIC_API_URL || 'http://localhost:3000/api';
+  menu.innerHTML = `
+    <h2>🔥 ONESTATE MENU</h2>
+    <button onclick="mostrarOuro()">🪙 OURO</button>
+    <p id="ouro">Ouro de demonstração: 0</p>
+  `;
 
-// Proxy für API-Requests
-app.all('/api/*', async (req, res) => {
-  try {
-    const path = req.path.replace('/api', '');
-    const url = `${API_URL}${path}`;
-    
-    const response = await axios({
-      method: req.method,
-      url: url,
-      data: req.body,
-      headers: {
-        'Content-Type': 'application/json',
-        'X-API-Key': process.env.API_KEY || ''
-      }
-    });
+  document.body.appendChild(menu);
+}
 
-    res.json(response.data);
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: error.message
-    });
-  }
-});
+function mostrarOuro() {
+  document.getElementById("ouro").innerText =
+    "Ouro de demonstração: 1000";
+}
 
-const PORT = 3001;
-app.listen(PORT, () => {
-  console.log('');
-  console.log('🎮 OneState Mod Menu App läuft auf Port ' + PORT);
-  console.log('📱 Öffne den Browser: http://localhost:' + PORT);
-  console.log('');
-});
+abrirMenu();
